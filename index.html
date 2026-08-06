@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Dispatch Pro — Economic Load Dispatch Analysis Suite</title>
+<title>Power System Analysis Suite (PSAS) — Economic Load Dispatch Analysis Suite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
@@ -96,7 +96,7 @@ footer{margin-top:30px;text-align:center;color:var(--muted);font-family:var(--fo
 <header>
   <div class="brand">
     <div class="brand-mark">λ</div>
-    <div><h1>Dispatch Pro</h1><div class="subtitle">economic load dispatch · constraints · metaheuristics · benchmarking</div></div>
+    <div><h1>Power System Analysis Suite (PSAS)</h1><div class="subtitle">economic load dispatch · constraints · metaheuristics · benchmarking</div></div>
   </div>
   <div class="badges">
     <div class="badge">B-LOSS COEFFICIENTS</div>
@@ -335,7 +335,7 @@ footer{margin-top:30px;text-align:center;color:var(--muted);font-family:var(--fo
   </div>
 </div>
 
-<footer>Dispatch Pro · λ-iteration + metaheuristic economic dispatch analysis suite · client-side computation only</footer>
+<footer>Power System Analysis Suite (PSAS) · λ-iteration + metaheuristic economic dispatch analysis suite · client-side computation only</footer>
 </div>
 
 <script src="allocation_rendering.js"></script>
@@ -666,7 +666,7 @@ async function exportReport(){
     for(let i=1; i<=totalPages; i++){
       doc.setPage(i);
       doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor(120);
-      doc.text(`Dispatch Pro | Page ${i} of ${totalPages}`, pageWidth/2, pageHeight-8, {align:'center'});
+      doc.text(`Power System Analysis Suite (PSAS) | Page ${i} of ${totalPages}`, pageWidth/2, pageHeight-8, {align:'center'});
     }
 
     doc.save(`ELD_Report_${new Date().toISOString().slice(0,10)}.pdf`);

@@ -1,6 +1,6 @@
-# Dispatch Pro
+# Power System Analysis Suite (PSAS)
 
-Dispatch Pro is an interactive web-based dashboard for solving the Economic Load Dispatch (ELD) problem in a practical and visually accessible way. It helps demonstrate how electrical power demand can be distributed among multiple generators to minimize total operating cost while respecting system constraints.
+Power System Analysis Suite (PSAS) is an interactive web-based dashboard for solving the Economic Load Dispatch (ELD) problem in a practical and visually accessible way. It helps demonstrate how electrical power demand can be distributed among multiple generators to minimize total operating cost while respecting system constraints.
 
 This project combines classical optimization methods with modern metaheuristic techniques in a single, browser-based interface. It is designed not only as a functional tool, but also as a clear academic demonstration of how dispatch problems are modeled and analyzed.
 
