@@ -134,6 +134,7 @@ footer{margin-top:30px;text-align:center;color:var(--muted);font-family:var(--fo
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;">
       <button type="button" onclick="loadSample3()">Load custom 3-gen system</button>
       <button type="button" onclick="loadIEEE6()">Load standard 6-unit benchmark system</button>
+      <button type="button" onclick="loadIEEE40()">Load standard 40-unit benchmark system</button>
       <button type="button" class="btn-danger" onclick="clearAll()">Clear all</button>
     </div>
     <table id="gen-table"></table>
@@ -737,6 +738,59 @@ function loadIEEE6(){
   renderGeneratorTable(); renderConstraintTables();
 }
 
+function loadIEEE40(){
+  usingBenchmarkMatrix = false;
+  lossesEnabled = false;
+  document.getElementById('toggle-losses').checked = false;
+  Bmatrix = [];
+  B0i = [];
+  B00 = 0;
+  generators = [
+    {a:94.705,b:6.73,c:0.00690,pmin:36,pmax:114, ppz:[], rampUp:114,rampDown:114, valveE:100,valveF:0.084},
+    {a:94.705,b:6.73,c:0.00690,pmin:36,pmax:114, ppz:[], rampUp:114,rampDown:114, valveE:100,valveF:0.084},
+    {a:309.54,b:7.07,c:0.02028,pmin:60,pmax:120, ppz:[], rampUp:120,rampDown:120, valveE:100,valveF:0.084},
+    {a:369.03,b:8.18,c:0.00942,pmin:80,pmax:190, ppz:[], rampUp:100,rampDown:150, valveE:150,valveF:0.063},
+    {a:148.89,b:5.35,c:0.01140,pmin:47,pmax:97, ppz:[], rampUp:97,rampDown:97, valveE:120,valveF:0.077},
+    {a:222.33,b:8.05,c:0.01142,pmin:68,pmax:140, ppz:[], rampUp:80,rampDown:125, valveE:100,valveF:0.084},
+    {a:287.71,b:8.05,c:0.00357,pmin:110,pmax:300, ppz:[], rampUp:165,rampDown:200, valveE:200,valveF:0.042},
+    {a:391.98,b:6.99,c:0.00492,pmin:135,pmax:300, ppz:[], rampUp:165,rampDown:200, valveE:200,valveF:0.042},
+    {a:455.76,b:6.60,c:0.00573,pmin:135,pmax:300, ppz:[], rampUp:165,rampDown:200, valveE:200,valveF:0.042},
+    {a:722.82,b:12.9,c:0.00605,pmin:130,pmax:300, ppz:[[130,150],[200,230],[270,299]], rampUp:155,rampDown:190, valveE:200,valveF:0.042},
+    {a:635.20,b:12.9,c:0.00515,pmin:94,pmax:375, ppz:[[100,140],[230,280],[300,350]], rampUp:150,rampDown:185, valveE:200,valveF:0.042},
+    {a:654.69,b:12.8,c:0.00569,pmin:94,pmax:375, ppz:[[100,140],[230,280],[300,350]], rampUp:150,rampDown:185, valveE:200,valveF:0.042},
+    {a:913.40,b:12.5,c:0.00421,pmin:125,pmax:500, ppz:[[150,200],[250,300],[400,450]], rampUp:206,rampDown:235, valveE:300,valveF:0.035},
+    {a:1760.4,b:8.84,c:0.00752,pmin:125,pmax:500, ppz:[[200,250],[300,350],[450,490]], rampUp:260,rampDown:290, valveE:300,valveF:0.035},
+    {a:1728.3,b:9.15,c:0.00708,pmin:125,pmax:500, ppz:[], rampUp:186,rampDown:215, valveE:300,valveF:0.035},
+    {a:1728.3,b:9.15,c:0.00708,pmin:125,pmax:500, ppz:[], rampUp:186,rampDown:215, valveE:300,valveF:0.035},
+    {a:647.85,b:7.97,c:0.00313,pmin:220,pmax:500, ppz:[], rampUp:240,rampDown:270, valveE:300,valveF:0.035},
+    {a:649.69,b:7.95,c:0.00313,pmin:220,pmax:500, ppz:[], rampUp:240,rampDown:268, valveE:300,valveF:0.035},
+    {a:647.83,b:7.97,c:0.00313,pmin:242,pmax:550, ppz:[], rampUp:290,rampDown:315, valveE:300,valveF:0.035},
+    {a:647.81,b:7.97,c:0.00313,pmin:242,pmax:550, ppz:[], rampUp:290,rampDown:315, valveE:300,valveF:0.035},
+    {a:785.96,b:6.63,c:0.00298,pmin:254,pmax:550, ppz:[], rampUp:335,rampDown:360, valveE:300,valveF:0.035},
+    {a:785.96,b:6.63,c:0.00298,pmin:254,pmax:550, ppz:[], rampUp:335,rampDown:360, valveE:300,valveF:0.035},
+    {a:794.53,b:6.66,c:0.00284,pmin:254,pmax:550, ppz:[], rampUp:335,rampDown:362, valveE:300,valveF:0.035},
+    {a:794.53,b:6.66,c:0.00284,pmin:254,pmax:550, ppz:[], rampUp:350,rampDown:378, valveE:300,valveF:0.035},
+    {a:801.32,b:7.10,c:0.00277,pmin:254,pmax:550, ppz:[], rampUp:350,rampDown:380, valveE:300,valveF:0.035},
+    {a:801.32,b:7.10,c:0.00277,pmin:254,pmax:550, ppz:[], rampUp:350,rampDown:380, valveE:300,valveF:0.035},
+    {a:1055.1,b:3.33,c:0.52124,pmin:10,pmax:150, ppz:[], rampUp:95,rampDown:145, valveE:120,valveF:0.077},
+    {a:1055.1,b:3.33,c:0.52124,pmin:10,pmax:150, ppz:[], rampUp:95,rampDown:145, valveE:120,valveF:0.077},
+    {a:1055.1,b:3.33,c:0.52124,pmin:10,pmax:150, ppz:[], rampUp:98,rampDown:145, valveE:120,valveF:0.077},
+    {a:148.89,b:5.35,c:0.01140,pmin:47,pmax:97, ppz:[], rampUp:97,rampDown:97, valveE:120,valveF:0.077},
+    {a:222.92,b:6.43,c:0.00160,pmin:60,pmax:190, ppz:[], rampUp:90,rampDown:145, valveE:150,valveF:0.063},
+    {a:222.92,b:6.43,c:0.00160,pmin:60,pmax:190, ppz:[], rampUp:90,rampDown:145, valveE:150,valveF:0.063},
+    {a:222.92,b:6.43,c:0.00160,pmin:60,pmax:190, ppz:[], rampUp:90,rampDown:145, valveE:150,valveF:0.063},
+    {a:107.87,b:8.95,c:0.00010,pmin:90,pmax:200, ppz:[], rampUp:105,rampDown:150, valveE:200,valveF:0.042},
+    {a:116.58,b:8.62,c:0.00010,pmin:90,pmax:200, ppz:[], rampUp:105,rampDown:150, valveE:200,valveF:0.042},
+    {a:116.58,b:8.62,c:0.00010,pmin:90,pmax:200, ppz:[], rampUp:105,rampDown:150, valveE:200,valveF:0.042},
+    {a:307.45,b:5.88,c:0.01610,pmin:25,pmax:110, ppz:[], rampUp:110,rampDown:110, valveE:80,valveF:0.098},
+    {a:307.45,b:5.88,c:0.01610,pmin:25,pmax:110, ppz:[], rampUp:110,rampDown:110, valveE:80,valveF:0.098},
+    {a:307.45,b:5.88,c:0.01610,pmin:25,pmax:110, ppz:[], rampUp:110,rampDown:110, valveE:80,valveF:0.098},
+    {a:647.83,b:7.97,c:0.00313,pmin:242,pmax:550, ppz:[], rampUp:290,rampDown:315, valveE:300,valveF:0.035}
+  ];
+  document.getElementById('in-demand').value=10500;
+  renderGeneratorTable(); renderConstraintTables();
+}
+
 function rebuildBMatrix(){
   if(usingBenchmarkMatrix) return;
   const n=generators.length;
@@ -817,9 +871,9 @@ function renderConstraintTables(){
     let h=`<table><thead><tr><th>Gen</th><th>minUpTime (h)</th><th>minDownTime (h)</th><th>Startup cost (₹)</th></tr></thead><tbody>`;
     generators.forEach((g,i)=>{
       h+=`<tr><td class="gen-tag">G${i+1}</td>
-        <td><input type="number" step="1" min="0" value="${g.minUpTime||2}" onchange="generators[${i}].minUpTime=parseInt(this.value)||2"></td>
-        <td><input type="number" step="1" min="0" value="${g.minDownTime||2}" onchange="generators[${i}].minDownTime=parseInt(this.value)||2"></td>
-        <td><input type="number" step="any" min="0" value="${g.startupCost||1000}" onchange="generators[${i}].startupCost=parseFloat(this.value)||1000"></td></tr>`;
+        <td><input type="number" step="1" min="0" value="${g.minUpTime!==undefined?g.minUpTime:''}" onchange="generators[${i}].minUpTime=this.value!==''?parseInt(this.value):undefined"></td>
+        <td><input type="number" step="1" min="0" value="${g.minDownTime!==undefined?g.minDownTime:''}" onchange="generators[${i}].minDownTime=this.value!==''?parseInt(this.value):undefined"></td>
+        <td><input type="number" step="any" min="0" value="${g.startupCost!==undefined?g.startupCost:''}" onchange="generators[${i}].startupCost=this.value!==''?parseFloat(this.value):undefined"></td></tr>`;
     });
     cbox.innerHTML=h+'</tbody></table>';
   }
